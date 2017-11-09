@@ -1,0 +1,57 @@
+{{Sample freeIPA plugin for user status|version=|ticket=TODO|author=Ab}}
+
+== Overview ==
+
+User status plugin demonstrates how to extend both freeIPA Python framework and
+freeIPA Web UI. It provides enough components and RPM spec file to maintain the
+changes separate from freeIPA core.
+
+The 'user status' is an imaginary field stored in the user object in freeIPA
+that allows other users to see whether this user is active in executing some
+tasks or is not available for a task execution.
+
+== Use Cases ==
+As an administrator, I want users to provide their own availability status for
+processing tasks.
+
+== Design==
+
+=== freeIPA integration ===
+
+freeIPA LDAP server includes various LDAP schema attributes and object clasess.
+From Netscape schema, there is inetUser object class which includes
+inetUserStatus attribute. Since every freeIPA user has 'inetUser' objectclass,
+we re-use 'inetUserStatus' attribute for our purpose.
+
+=== Access Control ===
+
+We add 'inetUserStatus' attribute to the self-service access control to allow
+users to change their own status.
+
+==== Compatibility to older FreeIPA versions ====
+
+User status integration feature is designed to be compatible with
+FreeIPA 4.4.1+. The feature is delivered as a third-party plugin which
+requires special support from the freeIPA core to allow addition of schema
+files. The support for this is added to FreeIPA 4.4.1+.
+
+=== Implementation ===
+
+User status does not provide any new LDAP object but rather extends a view of
+existing 'user' object to see 'inetUserStatus' attribute.
+
+freeIPA framework plugins loaded and then locked down. During plugin load it is
+possible to modify structure of any freeIPA object. This is what 'userstatus'
+plugin is exploiting:
+
+# freeIPA user object is extended to add 'inetuserstatus' StrEnum parameter
+# freeIPA user object is extended to include 'inetuserstatus' attribute into the list of attributes fetched by default
+# freeIPA i18n system is extended to provide default English translation for enumeration status and tooltip help for Web UI
+
+Web UI plugin is implemented by extending specification of user's details page.
+We add description of 'inetuserstatus' field to the 'Misc' section of the
+details page. The description of 'inetuserstatus' utilizes i18n messages
+provided by freeIPA.
+
+Web UI plugin uses 'radio' button selector to display status.
+

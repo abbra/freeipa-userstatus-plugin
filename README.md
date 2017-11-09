@@ -1,4 +1,4 @@
-= A user status plugin example for freeIPA
+# A user status plugin example for freeIPA
 
 ![](userstatus.png)
 

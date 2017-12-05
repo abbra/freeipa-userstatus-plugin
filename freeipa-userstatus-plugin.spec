@@ -141,9 +141,8 @@ for j in $(find plugin/updates -name '*.update') ; do
     %__cp $j %buildroot/%_datadir/ipa/updates
 done
 
-# Do not package web UI plugin yet
-for j in $(find plugin/ui/%{plugin_name} -name '*.js') ; do
-    %__cp $j %buildroot/%_datadir/ipa/js/plugins/%{plugin_name}
+for j in $(find plugin/ui/ -name '*.js') ; do
+    %__cp $j %buildroot/%_datadir/ipa/ui/js/plugins/%{plugin_name}
 done
 
 %posttrans

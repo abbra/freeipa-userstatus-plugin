@@ -12,3 +12,12 @@ tasks or is not available for a task execution.
 
 [See plugin/Feature.mediawiki](plugin/Feature.mediawiki) for detailed explanation.
 
+Steps to build sample
+
+$ sudo dnf -y install rpm-build rpmdevtools
+$ rpmdev-setuptree
+$ git archive --prefix freeipa-userstatus-plugin-0.0.2/ -o freeipa-userstatus-plugin-0.0.2.tar.gz HEAD
+$ cp freeipa-userstatus-plugin-0.0.2.tar.gz ~/rpmbuild/SOURCES/
+$ rpmbuild -ba freeipa-userstatus-plugin.spec
+
+The packages will be in ~/rpmbuild/RPMS/noarch/

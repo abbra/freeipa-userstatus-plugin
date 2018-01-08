@@ -17,6 +17,8 @@ Steps to build sample
 
     $ sudo dnf -y install rpm-build rpmdevtools
     $ rpmdev-setuptree
+    $ git clone https://github.com/abbra/freeipa-userstatus-plugin.git
+    $ cd freeipa-userstatus-plugin
     $ git archive --prefix freeipa-userstatus-plugin-0.0.2/ -o freeipa-userstatus-plugin-0.0.2.tar.gz HEAD
     $ cp freeipa-userstatus-plugin-0.0.2.tar.gz ~/rpmbuild/SOURCES/
     $ rpmbuild -ba freeipa-userstatus-plugin.spec
